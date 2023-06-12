@@ -13,10 +13,13 @@ extension String {
 		replace(/_(\p{L})/) { match in
 			" \(match.output.1.localizedUppercase)"
 		}
-		replace(/(\p{Ll})(\p{Lu})/) { match in
+		replace(/(\p{L})(\p{N})/) { match in
 			"\(match.output.1) \(match.output.2)"
 		}
-		replace(/(\p{Lu}+?)(\p{Lu})/) { match in
+		replace(/(\p{Ll}|\p{N})(\p{Lu})/) { match in
+			"\(match.output.1) \(match.output.2)"
+		}
+		replace(/(\p{Lu}+)(\p{Lu})/) { match in
 			"\(match.output.1) \(match.output.2)"
 		}
 		self = localizedCapitalized

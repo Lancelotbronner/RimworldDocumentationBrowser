@@ -7,7 +7,7 @@
 
 public struct ArchivedTag: Hashable, Identifiable {
 	
-	private let archive: RimworldDocumentationArchive
+	internal let archive: RimworldDocumentationArchive
 	private var i: Dictionary<String, _ArchivedTag>.Index
 
 	internal init(at index: Dictionary<String, _ArchivedTag>.Index, in archive: RimworldDocumentationArchive) {
@@ -45,8 +45,12 @@ public struct ArchivedTag: Hashable, Identifiable {
 		}
 	}
 
-	public var hasSingleParent: Bool {
-		rawValue.contexts.count == 1
+	public var hasNavigation: Bool {
+		rawValue.contexts.count > 0 || rawValue.children.count > 0
+	}
+
+	public var hasExamples: Bool {
+		rawValue.contexts.values.contains { $0.examples.count > 0 }
 	}
 
 	public var parents: some RandomAccessCollection<ArchivedTag> {
@@ -110,11 +114,11 @@ public struct ArchivedTagContext: Identifiable {
 	}
 
 	public var id: String {
-		_read { yield parent }
+		_read { yield tag.rawValue.contexts.keys[i] }
 	}
 
-	public var parent: String {
-		_read { yield tag.rawValue.contexts.keys[i] }
+	public var parent: ArchivedTag {
+		_read { yield ArchivedTag(id, in: tag.archive)! }
 	}
 
 	public var examples: some RandomAccessCollection<String> {

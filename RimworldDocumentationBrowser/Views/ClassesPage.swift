@@ -20,7 +20,7 @@ struct ClassesPage: View {
 			})
 		}
 		return result
-			.sorted(using: SortDescriptor(\.name))
+			.sorted(using: SortDescriptor(\.id))
 	}
 
 	var body: some View {
@@ -32,21 +32,33 @@ struct ClassesPage: View {
 			}
 #endif
 			List(classes) { schema in
-				NavigationLink(value: schema) {
-					VStack(alignment: .leading) {
-						Text(schema.name)
-						Text(schema.id)
-							.font(.caption)
-							.foregroundStyle(.secondary)
-							.monospaced()
-					}
-				}
 			}
+			ArchivedClassLink(schema)
 		}
 		.formStyle(.grouped)
 		.searchable(text: $search)
 	}
 
+}
+
+struct ArchivedClassLink: View {
+	let schema: ArchivedClass
+
+	init(_ schema: ArchivedClass) {
+		self.schema = schema
+	}
+
+	var body: some View {
+		NavigationLink(value: schema) {
+			VStack(alignment: .leading) {
+				Text(schema.name)
+				Text(schema.id)
+					.font(.caption)
+					.foregroundStyle(.secondary)
+					.monospaced()
+			}
+		}
+	}
 }
 
 struct ArchivedClassView: View {

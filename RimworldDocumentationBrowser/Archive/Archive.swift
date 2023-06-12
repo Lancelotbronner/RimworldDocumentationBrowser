@@ -138,6 +138,7 @@ internal struct _ArchivedTag: Codable {
 	@inlinable mutating func name(using identifier: String) {
 		var result = identifier.titleCased
 		result.replace(/Tex\b/, with: "Texture")
+		result.replace(/Def\b/, with: "Definition")
 		name = result.titleCased
 	}
 

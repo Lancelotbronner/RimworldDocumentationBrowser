@@ -9,7 +9,11 @@ import SwiftUI
 
 @main struct RimworldDocumentationBrowserApp: App {
     var body: some Scene {
-		DocumentGroup(newDocument: RimworldDocumentationArchiveDocument(.latest)) { document in
+		WindowGroup {
+			ContentView()
+				.environment(\.archive, .latest)
+		}
+		DocumentGroup(viewing: RimworldDocumentationArchiveDocument.self) { document in
 			ContentView()
 				.environment(\.archive, document.document.archive)
 		}
