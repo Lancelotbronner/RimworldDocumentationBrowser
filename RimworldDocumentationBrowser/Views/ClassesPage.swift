@@ -13,14 +13,13 @@ struct ClassesPage: View {
 	@State private var search = ""
 
 	private var classes: [ArchivedClass] {
-		var result = AnyRandomAccessCollection(archive.classes)
+		var result = archive.classes
 		if !search.isEmpty {
-			result = AnyRandomAccessCollection(result.filter {
+			result = result.filter {
 				$0.id.contains(search)
-			})
+			}
 		}
 		return result
-			.sorted(using: SortDescriptor(\.id))
 	}
 
 	var body: some View {
@@ -32,8 +31,8 @@ struct ClassesPage: View {
 			}
 #endif
 			List(classes) { schema in
+				ArchivedClassLink(schema)
 			}
-			ArchivedClassLink(schema)
 		}
 		.formStyle(.grouped)
 		.searchable(text: $search)

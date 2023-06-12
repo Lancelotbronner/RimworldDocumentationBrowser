@@ -13,14 +13,13 @@ struct TagsPage: View {
 	@State private var search = ""
 
 	private var tags: [ArchivedTag] {
-		var result = AnyRandomAccessCollection(archive.tags)
+		var result = archive.tags
 		if !search.isEmpty {
-			result = AnyRandomAccessCollection(result.filter {
+			result = result.filter {
 				$0.id.contains(search)
-			})
+			}
 		}
 		return result
-			.sorted(using: SortDescriptor(\.id))
 	}
 
 	var body: some View {
@@ -32,8 +31,8 @@ struct TagsPage: View {
 			}
 #endif
 			List(tags) { tag in
+				ArchivedTagLink(tag)
 			}
-			ArchivedTagLink(tag)
 		}
 		.formStyle(.grouped)
 		.searchable(text: $search)

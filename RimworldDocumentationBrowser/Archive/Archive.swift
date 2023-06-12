@@ -69,17 +69,19 @@ public final class RimworldDocumentationArchive: Codable, CustomStringConvertibl
 
 	internal var _classes: [String : _ArchivedClass] = [:]
 
-	public var classes: some RandomAccessCollection<ArchivedClass> {
-		_classes.indices.lazy.map { ArchivedClass(at: $0, in: self) }
-	}
+	public lazy var classes: [ArchivedClass] = {
+		_classes.indices.lazy.map {
+			ArchivedClass(at: $0, in: self)
+		}
+	}()
 
 	//MARK: - Tag Management
 
 	internal var _tags: [String : _ArchivedTag] = [:]
 
-	public var tags: some RandomAccessCollection<ArchivedTag> {
-		_tags.indices.lazy.map { ArchivedTag(at: $0, in: self) }
-	}
+	public lazy var tags: [ArchivedTag] = {
+		_tags.indices.map { ArchivedTag(at: $0, in: self) }
+	}()
 
 	//MARK: - Template Management
 
