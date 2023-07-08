@@ -12,16 +12,12 @@
 		7309A5402A2FD06A0042711E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7309A53F2A2FD06A0042711E /* Assets.xcassets */; };
 		7309A5442A2FD06A0042711E /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7309A5432A2FD06A0042711E /* Preview Assets.xcassets */; };
 		7313258D2A3184CB0098467C /* TagsPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7313258C2A3184CB0098467C /* TagsPage.swift */; };
-		732D00B72A325F14002057DE /* Archive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732D00B42A325F14002057DE /* Archive.swift */; };
-		732D00B82A325F14002057DE /* Class.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732D00B52A325F14002057DE /* Class.swift */; };
-		732D00B92A325F14002057DE /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732D00B62A325F14002057DE /* Tag.swift */; };
-		732D00BB2A325F1B002057DE /* ArchiveDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 732D00BA2A325F1B002057DE /* ArchiveDocument.swift */; };
 		7377DA522A3272B2006D9F0B /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7377DA512A3272B2006D9F0B /* String+.swift */; };
-		7383D2802A31733000F9990A /* Environment+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7383D27F2A31733000F9990A /* Environment+.swift */; };
+		738248DC2A51FA8000DC1E6C /* Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738248DB2A51FA8000DC1E6C /* Navigation.swift */; };
+		738248E52A5205CD00DC1E6C /* RimworldDocumentationKit in Resources */ = {isa = PBXBuildFile; fileRef = 738248E42A5205CD00DC1E6C /* RimworldDocumentationKit */; };
+		738248E72A5205D500DC1E6C /* RimworldDocumentationKit in Frameworks */ = {isa = PBXBuildFile; productRef = 738248E62A5205D500DC1E6C /* RimworldDocumentationKit */; };
 		738BC6FC2A317A2D009562AE /* ModulesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738BC6FB2A317A2D009562AE /* ModulesPage.swift */; };
 		739E0B7D2A3177A000E27165 /* MetadataPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 739E0B7C2A3177A000E27165 /* MetadataPage.swift */; };
-		73CE24FE2A33AD310088F13E /* Preview Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73CE24FD2A33AD310088F13E /* Preview Content.swift */; };
-		73CE25002A33AD6A0088F13E /* latest.json in Resources */ = {isa = PBXBuildFile; fileRef = 73CE24FF2A33AD690088F13E /* latest.json */; };
 		73DF19422A317BBB0034EDB2 /* ClassesPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73DF19412A317BBB0034EDB2 /* ClassesPage.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,17 +29,12 @@
 		7309A5412A2FD06A0042711E /* RimworldDocumentationBrowser.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RimworldDocumentationBrowser.entitlements; sourceTree = "<group>"; };
 		7309A5432A2FD06A0042711E /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7313258C2A3184CB0098467C /* TagsPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsPage.swift; sourceTree = "<group>"; };
-		732D00B42A325F14002057DE /* Archive.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Archive.swift; sourceTree = "<group>"; };
-		732D00B52A325F14002057DE /* Class.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Class.swift; sourceTree = "<group>"; };
-		732D00B62A325F14002057DE /* Tag.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
-		732D00BA2A325F1B002057DE /* ArchiveDocument.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArchiveDocument.swift; sourceTree = "<group>"; };
 		7377DA512A3272B2006D9F0B /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
-		7383D27F2A31733000F9990A /* Environment+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Environment+.swift"; sourceTree = "<group>"; };
+		738248DB2A51FA8000DC1E6C /* Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigation.swift; sourceTree = "<group>"; };
+		738248E42A5205CD00DC1E6C /* RimworldDocumentationKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RimworldDocumentationKit; sourceTree = "<group>"; };
 		7383D2842A31754E00F9990A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		738BC6FB2A317A2D009562AE /* ModulesPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModulesPage.swift; sourceTree = "<group>"; };
 		739E0B7C2A3177A000E27165 /* MetadataPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataPage.swift; sourceTree = "<group>"; };
-		73CE24FD2A33AD310088F13E /* Preview Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Preview Content.swift"; sourceTree = "<group>"; };
-		73CE24FF2A33AD690088F13E /* latest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = latest.json; sourceTree = "<group>"; };
 		73DF19412A317BBB0034EDB2 /* ClassesPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassesPage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -52,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				738248E72A5205D500DC1E6C /* RimworldDocumentationKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +53,7 @@
 		7309A52F2A2FD0690042711E = {
 			isa = PBXGroup;
 			children = (
+				738248E42A5205CD00DC1E6C /* RimworldDocumentationKit */,
 				7309A53A2A2FD0690042711E /* RimworldDocumentationBrowser */,
 				7309A5392A2FD0690042711E /* Products */,
 				7383D27C2A316EE800F9990A /* Frameworks */,
@@ -82,10 +75,10 @@
 				7383D2842A31754E00F9990A /* Info.plist */,
 				7309A53B2A2FD0690042711E /* App.swift */,
 				7309A53F2A2FD06A0042711E /* Assets.xcassets */,
-				732D00B32A325F14002057DE /* Archive */,
 				7377DA502A3272AA006D9F0B /* Extensions */,
 				7309A5422A2FD06A0042711E /* Preview Content */,
 				732D00BC2A325F26002057DE /* Views */,
+				738248DB2A51FA8000DC1E6C /* Navigation.swift */,
 			);
 			path = RimworldDocumentationBrowser;
 			sourceTree = "<group>";
@@ -93,22 +86,9 @@
 		7309A5422A2FD06A0042711E /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
-				73CE24FF2A33AD690088F13E /* latest.json */,
 				7309A5432A2FD06A0042711E /* Preview Assets.xcassets */,
-				73CE24FD2A33AD310088F13E /* Preview Content.swift */,
 			);
 			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		732D00B32A325F14002057DE /* Archive */ = {
-			isa = PBXGroup;
-			children = (
-				732D00B42A325F14002057DE /* Archive.swift */,
-				732D00BA2A325F1B002057DE /* ArchiveDocument.swift */,
-				732D00B52A325F14002057DE /* Class.swift */,
-				732D00B62A325F14002057DE /* Tag.swift */,
-			);
-			path = Archive;
 			sourceTree = "<group>";
 		};
 		732D00BC2A325F26002057DE /* Views */ = {
@@ -126,7 +106,6 @@
 		7377DA502A3272AA006D9F0B /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				7383D27F2A31733000F9990A /* Environment+.swift */,
 				7377DA512A3272B2006D9F0B /* String+.swift */,
 			);
 			path = Extensions;
@@ -156,6 +135,7 @@
 			);
 			name = RimworldDocumentationBrowser;
 			packageProductDependencies = (
+				738248E62A5205D500DC1E6C /* RimworldDocumentationKit */,
 			);
 			productName = RimworldDocumentationBrowser;
 			productReference = 7309A5382A2FD0690042711E /* RimworldDocumentationBrowser.app */;
@@ -201,7 +181,7 @@
 			files = (
 				7309A5442A2FD06A0042711E /* Preview Assets.xcassets in Resources */,
 				7309A5402A2FD06A0042711E /* Assets.xcassets in Resources */,
-				73CE25002A33AD6A0088F13E /* latest.json in Resources */,
+				738248E52A5205CD00DC1E6C /* RimworldDocumentationKit in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,17 +193,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				738BC6FC2A317A2D009562AE /* ModulesPage.swift in Sources */,
-				732D00B72A325F14002057DE /* Archive.swift in Sources */,
 				7309A53E2A2FD0690042711E /* ContentView.swift in Sources */,
 				7309A53C2A2FD0690042711E /* App.swift in Sources */,
 				73DF19422A317BBB0034EDB2 /* ClassesPage.swift in Sources */,
-				732D00BB2A325F1B002057DE /* ArchiveDocument.swift in Sources */,
-				732D00B92A325F14002057DE /* Tag.swift in Sources */,
-				73CE24FE2A33AD310088F13E /* Preview Content.swift in Sources */,
 				7313258D2A3184CB0098467C /* TagsPage.swift in Sources */,
-				7383D2802A31733000F9990A /* Environment+.swift in Sources */,
+				738248DC2A51FA8000DC1E6C /* Navigation.swift in Sources */,
 				7377DA522A3272B2006D9F0B /* String+.swift in Sources */,
-				732D00B82A325F14002057DE /* Class.swift in Sources */,
 				739E0B7D2A3177A000E27165 /* MetadataPage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -449,6 +424,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		738248E62A5205D500DC1E6C /* RimworldDocumentationKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = RimworldDocumentationKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7309A5302A2FD0690042711E /* Project object */;
 }

@@ -6,81 +6,95 @@
 //
 
 import SwiftUI
+import RimworldDocumentationKit
 
 struct ClassesPage: View {
-	@Environment(\.archive) private var archive
+	@Environment(RimworldArchive.self) private var archive
 
-	@State private var search = ""
+	@State private var query = ""
 
-	private var classes: [ArchivedClass] {
-		var result = archive.classes
-		if !search.isEmpty {
-			result = result.filter {
-				$0.id.contains(search)
-			}
+	var results: AnyRandomAccessCollection<Class> {
+		var tmp = archive.classes
+		if !query.isEmpty {
+			tmp = AnyRandomAccessCollection(tmp.lazy.filter {
+				$0.identifier.contains(query)
+			})
 		}
-		return result
+		return tmp
 	}
 
 	var body: some View {
+		// TODO: More Information
+		// Class information along with schema and definitions.
+		// TODO: Advanced Search
+		// Advanced search filter, either here or in the toolbar.
 		Form {
-#if DEBUG
-			Section("Roadmap") {
-				LabeledContent("More Information", value: "Class information along with schema and definitions.")
-				LabeledContent("Advanced Search", value: "Advanced search filter, either here or in the toolbar.")
-			}
-#endif
-			List(classes) { schema in
-				ArchivedClassLink(schema)
+			List(results) { schema in
+				ClassLink(schema)
 			}
 		}
 		.formStyle(.grouped)
-		.searchable(text: $search)
+		.searchable(text: $query)
 	}
 
 }
 
-struct ArchivedClassLink: View {
-	let schema: ArchivedClass
+struct ClassLabel: View {
+	let schema: Class
 
-	init(_ schema: ArchivedClass) {
+	init(_ schema: Class) {
+		self.schema = schema
+	}
+
+	var body: some View {
+		VStack(alignment: .leading) {
+			Text(schema.name)
+			Text(schema.identifier)
+				.font(.caption)
+				.foregroundStyle(.secondary)
+				.monospaced()
+		}
+	}
+}
+
+struct ClassLink: View {
+	let schema: Class
+
+	init(_ schema: Class) {
 		self.schema = schema
 	}
 
 	var body: some View {
 		NavigationLink(value: schema) {
-			VStack(alignment: .leading) {
-				Text(schema.name)
-				Text(schema.id)
-					.font(.caption)
-					.foregroundStyle(.secondary)
-					.monospaced()
-			}
+			ClassLabel(schema)
 		}
 	}
 }
 
-struct ArchivedClassView: View {
-	let schema: ArchivedClass
+struct ClassView: View {
+	let schema: Class
+
+	init(_ schema: Class) {
+		self.schema = schema
+	}
 
 	var body: some View {
 		Form {
-			Section("XML") {
-				LabeledContent("Identifier", value: schema.id)
-			}
+			LabeledContent("Identifier", value: schema.identifier)
+			LabeledContent("Name", value: schema.name)
 		}
 		.formStyle(.grouped)
-		.navigationTitle(schema.name)
+		.navigationTitle(schema.identifier)
 	}
 }
 
 #Preview("List") {
 	ClassesPage()
-		.environment(\.archive, .latest)
+		.environment(RimworldArchive.latest)
 }
 
 #Preview("Detail") {
 	NavigationStack {
-		ArchivedClassView(schema: RimworldDocumentationArchive.latest.classes.randomElement()!)
+		ClassView(RimworldArchive.latest.classes.randomElement()!)
 	}
 }

@@ -6,20 +6,21 @@
 //
 
 import SwiftUI
+import RimworldDocumentationKit
 
 struct TagsPage: View {
-	@Environment(\.archive) private var archive
+	@Environment(RimworldArchive.self) private var archive
 
-	@State private var search = ""
+	@State private var query = ""
 
-	private var tags: [ArchivedTag] {
-		var result = archive.tags
-		if !search.isEmpty {
-			result = result.filter {
-				$0.id.contains(search)
-			}
+	var results: AnyRandomAccessCollection<Tag> {
+		var tmp = archive.tags
+		if !query.isEmpty {
+			tmp = AnyRandomAccessCollection(tmp.lazy.filter {
+				$0.identifier.contains(query)
+			})
 		}
-		return result
+		return tmp
 	}
 
 	var body: some View {
@@ -30,98 +31,190 @@ struct TagsPage: View {
 				LabeledContent("Advanced Search", value: "Advanced search filter, either here or in the toolbar.")
 			}
 #endif
-			List(tags) { tag in
-				ArchivedTagLink(tag)
+			List(results) { tag in
+				TagLink(tag)
 			}
 		}
 		.formStyle(.grouped)
-		.searchable(text: $search)
+		.searchable(text: $query)
 		.navigationTitle("Tags")
 	}
 
 }
 
-struct ArchivedTagLink: View {
-	let tag: ArchivedTag
+struct TagLabel: View {
+	let tag: Tag
 
-	init(_ tag: ArchivedTag) {
+	init(_ tag: Tag) {
+		self.tag = tag
+	}
+
+	var body: some View {
+		VStack(alignment: .leading) {
+			Text(tag.name)
+			Text(tag.identifier)
+				.font(.caption)
+				.foregroundStyle(.secondary)
+				.monospaced()
+		}
+	}
+}
+
+struct TagLink: View {
+	let tag: Tag
+
+	init(_ tag: Tag) {
 		self.tag = tag
 	}
 
 	var body: some View {
 		NavigationLink(value: tag) {
-			VStack(alignment: .leading) {
-				Text(tag.name)
-				Text(tag.id)
-					.font(.caption)
-					.foregroundStyle(.secondary)
-					.monospaced()
-			}
+			TagLabel(tag)
 		}
 	}
 }
 
-struct ArchivedTagView: View {
-	let tag: ArchivedTag
+struct TagView: View {
+
+	private let tag: Tag
+	private let parents: [Tag]
+	private let children: [Tag]
+	private let examples: [TagExample]
+
+	init(_ tag: Tag) {
+		self.tag = tag
+		parents = Array(tag.parents)
+		children = Array(tag.children)
+		examples = Array(tag.examples)
+	}
+
+	private var formattedParents: String {
+		parents.lazy
+			.map(\.identifier)
+			.formatted(.list(type: .and))
+	}
+
+	private var formattedChildren: String {
+		children.lazy
+			.map(\.identifier)
+			.formatted(.list(type: .and))
+	}
 
 	var body: some View {
 		Form {
 			Section("XML") {
-				LabeledContent("Identifier", value: tag.id)
-				if !tag.formattedParents.isEmpty {
-					LabeledContent("Parents", value: tag.formattedParents)
+				LabeledContent("Identifier", value: tag.identifier)
+				if !parents.isEmpty {
+					LabeledContent("Parents", value: formattedParents)
 				}
-				if !tag.formattedChildren.isEmpty {
-					LabeledContent("Children", value: tag.formattedChildren)
+				if !children.isEmpty {
+					LabeledContent("Children", value: formattedChildren)
 				}
 			}
-			if tag.hasNavigation {
-				Section("Navigation") {
-					List {
-						if !tag.parents.isEmpty {
-							Section("Parents") {
-								ForEach(tag.parents) { parent in
-									ArchivedTagLink(parent)
-								}
-							}
-						}
-						if !tag.children.isEmpty {
-							Section("Children") {
-								ForEach(tag.children) { parent in
-									ArchivedTagLink(parent)
-								}
-							}
-						}
+			if !parents.isEmpty {
+				Section("Parents") {
+					List(parents) { parent in
+						TagLink(parent)
 					}
 				}
 			}
-			if tag.hasExamples {
+			if !children.isEmpty {
+				Section("Children") {
+					List(children) { child in
+						TagLink(child)
+					}
+				}
+			}
+			if !examples.isEmpty {
 				Section("Examples") {
-					List(tag.contexts) { context in
-						Section {
-							ForEach(context.examples, id: \.self) { example in
-								Text(example)
+					List(parents) { parent in
+						Section(parent.identifier) {
+							ForEach(examplesOf(parent: parent)) { example in
+								Text(example.value)
 							}
-							.monospaced()
-						} header: {
-							Text(context.id).monospaced()
 						}
 					}
 				}
+				.monospaced()
 			}
 		}
 		.formStyle(.grouped)
 		.navigationTitle(tag.name)
 	}
+
+	private func examplesOf(parent: Tag) -> [TagExample] {
+		let distinct = Set(examples.lazy.filter {
+			$0.relationship.parent.id == parent.id
+		})
+		return Array(distinct)
+	}
+
+}
+
+struct TagExamplesView: View {
+
+	private let examples: [TagExample]
+	private let contexts: [Tag]
+	private let defaultContext: [Tag]
+
+	init(_ examples: [TagExample]) {
+		self.examples = examples
+		let distinct = Set(examples.compactMap(\.relationship.context))
+		contexts = Array(distinct)
+		defaultContext = examples.lazy.filter {
+			$0.relationship.context == nil
+		}.map(\.relationship.parent)
+	}
+
+	private func parents(of context: Tag?) -> [Tag] {
+		let distinct = Set(examples.lazy.filter {
+			$0.relationship.context?.id == context?.id
+		}.map(\.relationship.parent))
+		return Array(distinct)
+	}
+
+	private func examples(of context: Tag?, _ parent: Tag) -> [TagExample] {
+		let distinct = Set(examples.lazy.filter {
+			$0.relationship.context?.id == context?.id
+			&& $0.relationship.parent.id == parent.id
+		})
+		return Array(distinct)
+	}
+
+	var body: some View {
+		Section("Examples") {
+			if !defaultContext.isEmpty {
+				List(defaultContext) { parent in
+					Section(parent.identifier) {
+						ForEach(examples(of: nil, parent)) { example in
+							Text(example.value)
+						}
+					}
+				}
+			}
+			ForEach(contexts) { context in
+				Section(context.identifier) {
+					List(parents(of: context)) { parent in
+						Section(parent.identifier) {
+							ForEach(examples(of: context, parent)) { example in
+								Text(example.value)
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
 }
 
 #Preview("List") {
 	TagsPage()
-		.environment(\.archive, .latest)
+		.environment(RimworldArchive.latest)
 }
 
 #Preview("Detail") {
 	NavigationStack {
-		ArchivedTagView(tag: RimworldDocumentationArchive.latest.tags.randomElement()!)
+		TagView(RimworldArchive.latest.tags.randomElement()!)
 	}
 }

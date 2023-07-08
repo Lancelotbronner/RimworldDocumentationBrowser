@@ -6,16 +6,17 @@
 //
 
 import SwiftUI
+import RimworldDocumentationKit
 
 @main struct RimworldDocumentationBrowserApp: App {
     var body: some Scene {
 		WindowGroup {
 			ContentView()
-				.environment(\.archive, .latest)
+				.environment(RimworldArchive.latest)
 		}
-		DocumentGroup(viewing: RimworldDocumentationArchiveDocument.self) { document in
+		DocumentGroup(viewing: RimworldArchiveDocument.self) { document in
 			ContentView()
-				.environment(\.archive, document.document.archive)
+				.environment(document.document.archive)
 		}
     }
 }
